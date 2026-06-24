@@ -2,7 +2,9 @@
 
 ## Author: Alan C. Echer
 
-### Escolha da base de dados
+## Etapa 1 – Coleta e Preparação dos Dados
+
+### 1. Coleta dos dados
 
 ![dataset-kaggle](assets/dataset-kaggle.png)
 
@@ -12,7 +14,53 @@ A base foi escolhida por abordar um problema atual e de grande relevância socia
 
 A base possui 1200 registros válidos e nenhuma variável apresenta valores ausentes, ela contém dados da utilização de redes sociais por adolescentes, seus hábitos, performance escolar e indicadores mentais.
 
-A base de dados possui inicialmente 13 colunas:
+A base reúne informações sobre:
+
+* idade;
+* gênero;
+* tempo diário de uso das redes sociais;
+* plataforma utilizada;
+* horas de sono;
+* tempo de tela antes de dormir;
+* desempenho escolar;
+* atividade física;
+* interação social;
+* níveis de estresse;
+* ansiedade;
+* dependência de redes sociais;
+* indicador de depressão.
+
+### 2. Preparação dos dados
+
+#### Valores ausentes
+
+Foi identificado que não existem valores faltantes em nenhuma das 13 variáveis.
+
+Portanto, não foi necessária nenhuma técnica de imputação.
+
+#### Tipos de dados
+
+Foi realizada a identificação das variáveis numéricas e categóricas.
+
+As variáveis categóricas serão posteriormente convertidas utilizando One-Hot Encoding, permitindo sua utilização pelos algoritmos de Machine Learning.
+
+#### Classe alvo
+
+Inicialmente a variável alvo considerada foi Depression Label.
+
+Entretanto, observou-se um forte desbalanceamento entre as classes, com aproximadamente 97,4% dos registros pertencentes à classe "não deprimido" e apenas 2,6% à classe "deprimido".
+
+Nas etapas de modelagem serão avaliadas técnicas para lidar com esse desbalanceamento, como SMOTE ou Oversampling, conforme discutido na disciplina.
+
+## Etapa 2 – Exploração dos Dados (EDA)
+
+Realizou-se uma análise exploratória dos dados utilizando os componentes Statistics e Data Explorer do KNIME. O objetivo foi compreender a distribuição das variáveis, identificar possíveis inconsistências e conhecer as características da base antes da construção dos modelos preditivos.
+
+* As variáveis numéricas apresentam distribuição relativamente homogênea.
+* As variáveis categóricas possuem poucas categorias e são adequadas para codificação por One-Hot Encoding.
+* A variável Gender apresenta distribuição equilibrada entre masculino e feminino.
+* A variável Platform Usage possui três categorias (Instagram, TikTok e Both).
+* A variável Depression Label apresenta forte desbalanceamento.
 
 #### Coluna: Age - Idade do estudante (Numérica discreta)
 
