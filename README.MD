@@ -194,12 +194,32 @@ A separação dos dados em treino é teste foi feito para garantir que não haja
 
 ### 3.2. Modelo 1 regressão linear
 
+No modelo 1 para a classe 1 = com depressão o modelo obteve uma precisao de 61.3% e um recall de 67.9%.
+
+- ACERTOS: tivemos 19 TP (estudantes que tinham depressão e o modelo categorizou como depressão)
+- ACERTOS: tivemos 1.160 TN (estudantes que não tinham depressão e o modelo categorizou como não depressão)
+- ERROS: tivemos 9 FN (estudantes que tinham depressão e foram categorizados sem depressão)
+- ERROS: tivemos 12 FP (estudantes que não tinham depressão e foram categorizados com depressão)
+
 ![knime-model-lr](./assets/knime-model-lr.png)
 
 ### 3.3. Modelo 2 regressão linear + data augmentation (SMOTE)
 
 ![knime-model-lr-smote](./assets/knime-model-lr-smote.png)
 
-![]()
+No modelo 2 para a classe 1 = com depressão o modelo obteve uma precisão de 83.9% e um recall de 36.6%
+
+* ACERTOS: tivemos 26 TP (estudantes que tinham depressão e o modelo categorizou como depressão)
+* ACERTOS: tivemos 1.124 TN (estudantes que não tinham depressão e o modelo categorizou como não depressão)
+* ERROS: tivemos 45 FN (estudantes que tinham depressão e foram categorizados sem depressão)
+* ERROS: tivemos 5 FP (estudantes que não tinham depressão e foram categorizados com depressão)
 
 ### 3.4. Comparação modelo 1 vs modelo 2
+
+Ao comparar os dois modelos, observa-se um comportamento distinto entre eles. O Modelo 1 apresentou maior Recall, sendo capaz de identificar uma quantidade maior de estudantes com depressão. Como consequência, também gerou um número maior de falsos positivos, classificando alguns estudantes sem depressão como deprimidos. Entretanto, essa abordagem reduz a quantidade de casos reais de depressão que deixam de ser identificados, característica desejável em aplicações de triagem na área da saúde.
+
+Já o Modelo 2 apresentou uma abordagem mais conservadora. Sua maior precisão indica que, quando o modelo classifica um estudante como portador de depressão, essa previsão tende a estar correta na maioria dos casos. Em contrapartida, o baixo Recall demonstra que o modelo deixou de identificar muitos estudantes que realmente apresentavam depressão, classificando incorretamente como não deprimidos. Assim, embora produza menos falsos positivos, o Modelo 2 gera um número significativamente maior de falsos negativos.
+
+Considerando que o objetivo deste trabalho é identificar estudantes com depressão, o Modelo 1 mostrou-se mais adequado, pois prioriza a identificação da classe de interesse, mesmo ao custo de aumentar a quantidade de falsos positivos.
+
+Vamos agora fazer outros modelos.
