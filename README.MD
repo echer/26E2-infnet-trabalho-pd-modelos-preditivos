@@ -2,6 +2,8 @@
 
 ## Author: Alan C. Echer
 
+## Este trabalho está disponível no github: https://github.com/echer/26E2-infnet-trabalho-pd-modelos-preditivos.git
+
 ## 1. Etapa 1 – Coleta e Preparação dos Dados
 
 ### 1.1. Coleta dos dados
@@ -158,9 +160,9 @@ A matriz de correlação demonstra que não existem correlações lineares forte
 
 As maiores correlações observadas foram:
 
-+0,076 - Age × Screen Time Before Sleep
--0,064 - Academic Performance × Anxiety Level
--0,055 - Sleep Hours × Addiction Level
+* +0,076 - Age × Screen Time Before Sleep
+* -0,064 - Academic Performance × Anxiety Level
+* -0,055 - Sleep Hours × Addiction Level
 
 Mesmo essas relações são consideradas muito fracas, indicando que nenhuma variável, isoladamente, apresenta forte relação linear com outra.
 
@@ -223,3 +225,16 @@ Já o Modelo 2 apresentou uma abordagem mais conservadora. Sua maior precisão i
 Considerando que o objetivo deste trabalho é identificar estudantes com depressão, o Modelo 1 mostrou-se mais adequado, pois prioriza a identificação da classe de interesse, mesmo ao custo de aumentar a quantidade de falsos positivos.
 
 Vamos agora fazer outros modelos.
+
+### 3.5. Modelo 3 decision tree
+
+No modelo 3 para a classe 1 = com depressão o modelo obteve uma precisão de 93.5% e um recall de 100%
+
+ACERTOS: tivemos 29 TP (estudantes que tinham depressão e o modelo categorizou como depressão)
+ACERTOS: tivemos 1.169 TN (estudantes que não tinham depressão e o modelo categorizou como não depressão)
+ERROS: tivemos 0 FN (estudantes que tinham depressão e foram categorizados sem depressão)
+ERROS: tivemos 2 FP (estudantes que não tinham depressão e foram categorizados com depressão)
+
+O modelo até o momento está sendo o melhor ele conseguiu categorizar 100% dos estudantes que tinham depressão com depressão recall excelente para a área da saude, e para os que não tinham depressão ele categorizou apenas 2 resultado incorretamente como depressão uma taxa baixissima de falsos positivos.
+
+![knime-model-decision-tree](./assets/knime-model-decision-tree.png)
