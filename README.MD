@@ -168,6 +168,8 @@ Mesmo essas relações são consideradas muito fracas, indicando que nenhuma var
 
 ![knime-correlation-matrix](./assets/knime-correlation-matrix.png)
 
+De forma geral, a análise exploratória mostrou que a base apresenta boa qualidade, ausência de valores faltantes e variáveis bem distribuídas. O principal desafio identificado foi o forte desbalanceamento da variável alvo, fator que motivou a utilização de técnicas específicas durante a etapa de modelagem.
+
 ## 3. Etapa 3 - Modelos
 
 ### 3.1. Preparação para o modelo
@@ -235,6 +237,6 @@ No modelo 3 para a classe 1 = com depressão o modelo obteve uma precisão de 93
 * ERROS: tivemos 0 FN (estudantes que tinham depressão e foram categorizados sem depressão)
 * ERROS: tivemos 2 FP (estudantes que não tinham depressão e foram categorizados com depressão)
 
-O modelo até o momento está sendo o melhor ele conseguiu categorizar 100% dos estudantes que tinham depressão com depressão recall excelente para a área da saude, e para os que não tinham depressão ele categorizou apenas 2 resultado incorretamente como depressão uma taxa baixissima.
+O modelo até o momento está sendo o melhor ele conseguiu categorizar 100% dos estudantes que tinham depressão como depressão, um recall excelente para a área da saude, e para os que não tinham depressão ele categorizou apenas 2 resultado incorretamente como depressão uma taxa baixissima de falsos positivos.
 
 ![knime-model-decision-tree](./assets/knime-model-decision-tree.png)
