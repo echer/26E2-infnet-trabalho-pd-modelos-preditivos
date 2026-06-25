@@ -230,11 +230,11 @@ Vamos agora fazer outros modelos.
 
 No modelo 3 para a classe 1 = com depressão o modelo obteve uma precisão de 93.5% e um recall de 100%
 
-ACERTOS: tivemos 29 TP (estudantes que tinham depressão e o modelo categorizou como depressão)
-ACERTOS: tivemos 1.169 TN (estudantes que não tinham depressão e o modelo categorizou como não depressão)
-ERROS: tivemos 0 FN (estudantes que tinham depressão e foram categorizados sem depressão)
-ERROS: tivemos 2 FP (estudantes que não tinham depressão e foram categorizados com depressão)
+* ACERTOS: tivemos 29 TP (estudantes que tinham depressão e o modelo categorizou como depressão)
+* ACERTOS: tivemos 1.169 TN (estudantes que não tinham depressão e o modelo categorizou como não depressão)
+* ERROS: tivemos 0 FN (estudantes que tinham depressão e foram categorizados sem depressão)
+* ERROS: tivemos 2 FP (estudantes que não tinham depressão e foram categorizados com depressão)
 
-O modelo até o momento está sendo o melhor ele conseguiu categorizar 100% dos estudantes que tinham depressão com depressão recall excelente para a área da saude, e para os que não tinham depressão ele categorizou apenas 2 resultado incorretamente como depressão uma taxa baixissima de falsos positivos.
+O modelo até o momento está sendo o melhor ele conseguiu categorizar 100% dos estudantes que tinham depressão com depressão recall excelente para a área da saude, e para os que não tinham depressão ele categorizou apenas 2 resultado incorretamente como depressão uma taxa baixissima.
 
 ![knime-model-decision-tree](./assets/knime-model-decision-tree.png)
