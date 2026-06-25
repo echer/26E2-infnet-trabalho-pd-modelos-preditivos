@@ -52,7 +52,7 @@ Entretanto, observou-se um forte desbalanceamento entre as classes, com aproxima
 
 Nas etapas de modelagem serão avaliadas técnicas para lidar com esse desbalanceamento, como SMOTE ou Oversampling, conforme discutido na disciplina.
 
-## Etapa 2 – Exploração dos Dados (EDA)
+## Etapa 2 – Análise exploratória (EDA)
 
 Realizou-se uma análise exploratória dos dados utilizando os componentes Statistics e Data Explorer do KNIME. O objetivo foi compreender a distribuição das variáveis, identificar possíveis inconsistências e conhecer as características da base antes da construção dos modelos preditivos.
 
@@ -136,6 +136,68 @@ A coluna nível de dependência também tem dados bem distribuidos variando de 1
 
 ### Column: Depression Label - Rótulo de depressão (Categórica binária)
 
-A coluna depression label é a coluna explicativa do nosso dataset e ela define se o estudante possui depressão ou não, se 0 = não tem depressão, se 1 = tem depressão. A variável alvo apresenta forte desbalanceamento, com aproximadamente 97,4% dos registros pertencentes à classe "não deprimido" e apenas 2,6% à classe "deprimido". Esse desbalanceamento pode prejudicar o treinamento dos modelos, favorecendo a classe majoritária. Para minimizar esse problema poderão ser utilizadas técnicas como SMOTE ou Oversampling durante o pré-processamento.
+A coluna depression label é a coluna explicativa do nosso dataset e ela define se o estudante possui depressão ou não, se 0 = não tem depressão, se 1 = tem depressão. 
 
 ![column_depression_label](./assets/column_depression_label.png)
+
+As estatisticas completas das colunas e o histograma podem ser conferidas no knime:
+
+![knime-statistics](./assets/knime-statistics.png)
+
+
+
+### Desbalanceamento da classe alvo
+
+A variável alvo apresenta forte desbalanceamento, com aproximadamente 97,4% (1169) dos registros pertencentes à classe "não deprimido" e apenas 2,6% (31) à classe "deprimido". Esse desbalanceamento pode prejudicar o treinamento dos modelos, favorecendo a classe majoritária. Para minimizar esse problema poderão ser utilizadas técnicas como SMOTE ou Oversampling durante o pré-processamento.
+
+![knime-depression-barchart](./assets/knime-depression-barchart.png)
+
+### Matrix de correlação
+
+A matriz de correlação demonstra que não existem correlações lineares fortes entre as variáveis numéricas. Todos os coeficientes encontrados são muito próximos de zero, variando aproximadamente entre -0,064 e 0,076.
+
+As maiores correlações observadas foram:
+
++0,076 - Age × Screen Time Before Sleep
+-0,064 - Academic Performance × Anxiety Level
+-0,055 - Sleep Hours × Addiction Level
+
+Mesmo essas relações são consideradas muito fracas, indicando que nenhuma variável, isoladamente, apresenta forte relação linear com outra.
+
+![knime-correlation-matrix](./assets/knime-correlation-matrix.png)
+
+## Etapa 3 - Modelos
+
+### Preparação para o modelo
+
+#### One hot encoding
+
+Foram aplicados técnicas de one hot encoding para transformar as variáveis categóricas: gender, platform_usage e social_interaction_level em variáveis numéricas para serem utilizadas no treinamento.
+
+![knime-one-hot-encoding](./assets/knime-one-hot-encoding.png)
+
+A técnica transforma cada categoria em uma nova coluna, por exemplo a coluna gender foi transformada em duas colunas: male e female.
+
+![knime-one-hot-encoding-male-female](./assets/knime-one-hot-encoding-male-female.png)
+
+#### Normalização
+
+Foi aplicado também uma técnica de normalização nas colunas pois estavam em escalas diferentes, evitando que atributos muito maiores influenciassem no modelo: age, daily_social_media_hours, sleep_hours, screen_time_before_sleep, academic_performance, physical_activity, stress_level, anxiety_level, addiction_level.
+
+![knime-normalization](./assets/knime-normalization.png)
+
+#### Separação treino / teste
+
+A separação dos dados em treino é teste foi feito para garantir que não haja vazamento de dados entre os dados de treino e dados de teste, além disso foi utilizado uma estratégia de estratificação dos dados 1.200 linhas em 10 partes (folds) de 120 linhas estratificando pela coluna depression_label, garantindo que cada fold contenha aproximadamente a mesma proporção de deprimidos (3) e não deprimidos (117), esta estratégia garante que os dados consigam ser separados treinados e testados da forma mais confiável possível já que a base é bem desbalanceada tendo apenas 31 registros com depressão de 1.200.
+
+![knime-split-train-test](./assets/knime-split-train-test.png)
+
+### Modelo base
+
+
+![knime-model-lr](./assets/knime-model-lr.png)
+
+
+![knime-model-lr-smote](./assets/knime-model-lr-smote.png)
+
+![]()
