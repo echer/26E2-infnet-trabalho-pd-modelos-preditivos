@@ -168,11 +168,9 @@ Mesmo essas relações são consideradas muito fracas, indicando que nenhuma var
 
 De forma geral, a análise exploratória mostrou que a base apresenta boa qualidade, ausência de valores faltantes e variáveis bem distribuídas. O principal desafio identificado foi o forte desbalanceamento da variável alvo, fator que motivou a utilização de técnicas específicas durante a etapa de modelagem.
 
-## 3. Etapa 3 - Modelos
+## 3. Etapa 3 - Pré processamento
 
-### 3.1. Preparação para o modelo
-
-#### 3.1.1. One hot encoding
+### 3.1. One hot encoding
 
 Foram aplicados técnicas de one hot encoding para transformar as variáveis categóricas: gender, platform_usage e social_interaction_level em variáveis numéricas para serem utilizadas no treinamento.
 
@@ -182,19 +180,25 @@ A técnica transforma cada categoria em uma nova coluna, por exemplo a coluna ge
 
 ![knime-one-hot-encoding-male-female](./assets/knime-one-hot-encoding-male-female.png)
 
-#### 3.1.2. Normalização
+### 3.2. Normalização
 
 Foi aplicado também uma técnica de normalização nas colunas pois estavam em escalas diferentes, evitando que atributos muito maiores influenciassem no modelo: age, daily_social_media_hours, sleep_hours, screen_time_before_sleep, academic_performance, physical_activity, stress_level, anxiety_level, addiction_level.
 
 ![knime-normalization](./assets/knime-normalization.png)
 
-#### 3.1.3. Separação treino / teste
+### 3.3. Separação treino / teste
+
+Para comparar diferentes modelos de classificação de maneira justa foi utilizada a técnica de validação cruzada (Cross Validation). Nessa abordagem, a base de dados é dividida em diferentes subconjuntos (folds). Ao final das 10 iterações, as métricas de desempenho são calculadas em cada fold e a média dessas métricas representa o desempenho final do modelo. Além disso, foi utilizada a divisão estratificada, preservando a proporção entre as classes em cada partição de treinamento e teste, garantindo uma avaliação mais representativa do desempenho dos modelos.
 
 A separação dos dados em treino é teste foi feito para garantir que não haja vazamento de dados entre os dados de treino e dados de teste, além disso foi utilizado uma estratégia de estratificação dos dados 1.200 linhas em 10 partes (folds) de 120 linhas estratificando pela coluna depression_label, garantindo que cada fold contenha aproximadamente a mesma proporção de deprimidos (3) e não deprimidos (117), esta estratégia garante que os dados consigam ser separados treinados e testados da forma mais confiável possível já que a base é bem desbalanceada tendo apenas 31 registros com depressão de 1.200.
 
 ![knime-split-train-test](./assets/knime-split-train-test.png)
 
-### 3.2. Modelo 1 Regressão Logistica
+## 4. Etapa 4 - Modelagem Preditiva
+
+### 4.1. Modelo 1 Regressão Logistica
+
+Embora possuam nomes semelhantes, a regressão linear e a regressão logística possuem objetivos diferentes. A regressão linear é utilizada para prever valores numéricos contínuos, como preço de imóveis, temperatura ou faturamento. Seu resultado pode assumir qualquer valor dentro de um intervalo contínuo. Já a regressão logística é utilizada em problemas de classificação. Em vez de prever um valor contínuo, ela estima a probabilidade de uma observação pertencer a uma determinada classe. Para isso, utiliza a função logística (sigmoide), que transforma o resultado em um valor entre 0 e 1. A partir dessa probabilidade, define-se a classe prevista, como por exemplo "com depressão" ou "sem depressão". Neste trabalho foi utilizada a regressão logística porque o objetivo é classificar os estudantes em duas classes (com depressão e sem depressão), caracterizando um problema de classificação binária.
 
 No modelo 1 para a classe 1 = com depressão o modelo obteve uma precisao de 61.3% e um recall de 67.9%.
 
@@ -205,7 +209,7 @@ No modelo 1 para a classe 1 = com depressão o modelo obteve uma precisao de 61.
 
 ![knime-model-lr](./assets/knime-model-lr.png)
 
-### 3.3. Modelo 2 Regressão Logistica + Data Augmentation (SMOTE)
+### 4.2. Modelo 2 Regressão Logistica + Data Augmentation (SMOTE)
 
 ![knime-model-lr-smote](./assets/knime-model-lr-smote.png)
 
@@ -216,7 +220,7 @@ No modelo 2 para a classe 1 = com depressão o modelo obteve uma precisão de 83
 * ERROS: tivemos 45 FN (estudantes que tinham depressão e foram categorizados sem depressão)
 * ERROS: tivemos 5 FP (estudantes que não tinham depressão e foram categorizados com depressão)
 
-### 3.4. Comparação Modelo 1 vs Modelo 2
+### 4.3. Comparação Modelo 1 vs Modelo 2
 
 Ao comparar os dois modelos, observa-se um comportamento distinto entre eles. O Modelo 1 apresentou maior Recall, sendo capaz de identificar uma quantidade maior de estudantes com depressão. Como consequência, também gerou um número maior de falsos positivos, classificando alguns estudantes sem depressão como deprimidos. Entretanto, essa abordagem reduz a quantidade de casos reais de depressão que deixam de ser identificados, característica desejável em aplicações de triagem na área da saúde.
 
@@ -226,7 +230,7 @@ Considerando que o objetivo deste trabalho é identificar estudantes com depress
 
 Vamos agora fazer outros modelos.
 
-### 3.5. Modelo 3 Decision Tree
+### 4.4. Modelo 3 Decision Tree
 
 No modelo 3 para a classe 1 = com depressão o modelo obteve uma precisão de 93.5% e um recall de 100%
 
@@ -239,7 +243,7 @@ O modelo até o momento está sendo o melhor ele conseguiu categorizar 100% dos 
 
 ![knime-model-decision-tree](./assets/knime-model-decision-tree.png)
 
-### 3.6. Modelo 4 Random Forest
+### 4.5. Modelo 4 Random Forest
 
 No modelo 4 para a classe 1 = com depressão o modelo obteve uma precisão de 90.3% e um recall de 100%
 
@@ -252,7 +256,7 @@ O modelo 4 assim como o 3 obteve um excelente resultado de recall e de precisão
 
 ![knime-model-random-forest](./assets/knime-model-random-forest.png)
 
-### 3.7 Modelo 5 Gradient Boosted Trees
+### 4.6. Modelo 5 Gradient Boosted Trees (extra)
 
 No modelo 5 para a classe 1 = com depressão o modelo obteve uma precisão de 96.8% e um recall de 100%
 
@@ -264,3 +268,41 @@ No modelo 5 para a classe 1 = com depressão o modelo obteve uma precisão de 96
 Até o momento o modelo 5 tem o melhor resultado de performance acertando todos os que tem depressão e categorizando errado apenas 1 estudante que não tinha depressão como depressão.
 
 ![knime-model-gradient-boosted-trees](./assets/knime-model-gradient-boosted-trees.png)
+
+### 4.7. Modelo 6 SVM (extra)
+
+Também foram treinados outro modelo utilizando SVM porém não obtive muito sucesso e demandaria um pouco mais de aprofudamento no rune de hyperparametros e experimentação.
+
+![knime-model-svm](./assets/knime-model-svm.png)
+
+### 4.8. Modelo 7 Rede Neural Rasa
+
+No modelo 7 para a classe 1 = com depressão o modelo obteve uma precisão de 80.6% e um recall de 69.4%
+
+* ACERTOS: tivemos 25 TP (estudantes que tinham depressão e o modelo categorizou como depressão)
+* ACERTOS: tivemos 1.158 TN (estudantes que não tinham depressão e o modelo categorizou como não depressão)
+* ERROS: tivemos 11 FN (estudantes que tinham depressão e foram categorizados sem depressão)
+* ERROS: tivemos 6 FP (estudantes que não tinham depressão e foram categorizados com depressão)
+
+O modelo de rede neural rasa foi feito utilizando 1 hidden layer e 50 neuronios por layer, durante 1.000 interações. O modelo não performou muito bem.
+
+![knime-model-neural-network-shallow](./assets/knime-model-neural-network-shallow.png)
+
+### 4.9. Modelo 8 Rede Neural Profunda
+
+O Deep Learning é uma evolução das redes neurais artificiais, utilizando várias camadas ocultas para aprender padrões mais complexos nos dados. Esse tipo de modelo costuma apresentar um desempenho muito bom em problemas como reconhecimento de imagens, voz e texto, principalmente quando há uma grande quantidade de dados disponível. Porém, também exige maior capacidade computacional e mais tempo para treinamento. Neste trabalho foi utilizada uma rede neural rasa, conforme solicitado pelo professor, enquanto o Deep Learning foi estudado apenas de forma conceitual para compreender sua aplicação e suas diferenças em relação às redes neurais tradicionais.
+
+### 4.10. Comparação dos Modelos
+
+
+| Modelo                             | Acurácia | Precisão |   Recall   | F1-Score | Observação                                                                                                                      |
+| ---------------------------------- | :-------: | :-------: | :--------: | :-------: | --------------------------------------------------------------------------------------------------------------------------------- |
+| **Regressão Logística**          |   98,3%   |   61,3%   |   67,9%   |   64,4%   | Modelo simples e interpretável. Apresentou recall razoável, porém baixa precisão para identificar estudantes com depressão.  |
+| **Regressão Logística + SMOTE**  |   95,8%   |   83,9%   |   36,6%   |   51,0%   | O balanceamento aumentou a precisão, porém reduziu significativamente o recall, deixando de identificar muitos casos positivos. |
+| **Árvore de Decisão**            |   99,8%   |   93,5%   |   100,0%   |   96,6%   | Excelente desempenho, identificando todos os casos positivos. Fácil interpretação e ótimo equilíbrio entre métricas.        |
+| **Random Forest**                  |   99,8%   |   90,3%   |   100,0%   |   94,9%   | Resultado muito semelhante ao da Árvore de Decisão, porém mais robusto contra overfitting.                                     |
+| **Gradient Boosted Trees (extra)** | **99,9%** | **96,8%** | **100,0%** | **98,4%** | Melhor desempenho entre todos os modelos avaliados, apresentando a maior precisão sem perder recall.                             |
+| **SVM (extra)**                    |   98,0%   |   79,4%   |   72,2%   |   75,6%   | Obteve desempenho intermediário. Provavelmente poderia melhorar com ajuste de hiperparâmetros.                                  |
+| **Rede Neural Rasa**               |   98,6%   |   80,6%   |   69,4%   |   74,6%   | Não superou os modelos baseados em árvores para esta base de dados.                                                             |
+
+Considerando apenas os modelos exigidos pelo trabalho, a Árvore de Decisão seria a escolha mais indicada por combinar excelente desempenho com simplicidade e facilidade de interpretação. Entretanto, considerando todos os modelos treinados, incluindo os experimentos extras, o Gradient Boosted Trees apresentou o melhor desempenho geral, alcançando os maiores valores de acurácia, precisão, recall e F1-score. Dessa forma, ele seria o modelo recomendado para uma eventual implantação em um ambiente real, enquanto a Árvore de Decisão permanece como a melhor alternativa entre os modelos obrigatórios da disciplina.
