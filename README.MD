@@ -251,3 +251,16 @@ No modelo 4 para a classe 1 = com depressão o modelo obteve uma precisão de 90
 O modelo 4 assim como o 3 obteve um excelente resultado de recall e de precisão com uma diferença de apenas 1 TP e 1 FP entre eles, pode ser dizer que os modelos tiveram resultados bem semelhantes, o modelo 4 pelo seu método de classificação e generalização e por ser menos sucetivel a overfiting seria uma escolha um pouco mais segura do que o decision tree até o momento.
 
 ![knime-model-random-forest](./assets/knime-model-random-forest.png)
+
+### 3.7 Modelo 5 Gradient Boosted Trees
+
+No modelo 5 para a classe 1 = com depressão o modelo obteve uma precisão de 96.8% e um recall de 100%
+
+* ACERTOS: tivemos 30 TP (estudantes que tinham depressão e o modelo categorizou como depressão)
+* ACERTOS: tivemos 1.169 TN (estudantes que não tinham depressão e o modelo categorizou como não depressão)
+* ERROS: tivemos 0 FN (estudantes que tinham depressão e foram categorizados sem depressão)
+* ERROS: tivemos 1 FP (estudantes que não tinham depressão e foram categorizados com depressão)
+
+Até o momento o modelo 5 tem o melhor resultado de performance acertando todos os que tem depressão e categorizando errado apenas 1 estudante que não tinha depressão como depressão.
+
+![knime-model-gradient-boosted-trees](./assets/knime-model-gradient-boosted-trees.png)
