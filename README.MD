@@ -138,15 +138,13 @@ A coluna nível de dependência também tem dados bem distribuidos variando de 1
 
 ### 2.13. Column: Depression Label - Rótulo de depressão (Categórica binária)
 
-A coluna depression label é a coluna explicativa do nosso dataset e ela define se o estudante possui depressão ou não, se 0 = não tem depressão, se 1 = tem depressão. 
+A coluna depression label é a coluna explicativa do nosso dataset e ela define se o estudante possui depressão ou não, se 0 = não tem depressão, se 1 = tem depressão.
 
 ![column_depression_label](./assets/column_depression_label.png)
 
 As estatisticas completas das colunas e o histograma podem ser conferidas no knime:
 
 ![knime-statistics](./assets/knime-statistics.png)
-
-
 
 ### 2.14. Desbalanceamento da classe alvo
 
@@ -196,7 +194,7 @@ A separação dos dados em treino é teste foi feito para garantir que não haja
 
 ![knime-split-train-test](./assets/knime-split-train-test.png)
 
-### 3.2. Modelo 1 regressão linear
+### 3.2. Modelo 1 Regressão Logistica
 
 No modelo 1 para a classe 1 = com depressão o modelo obteve uma precisao de 61.3% e um recall de 67.9%.
 
@@ -207,7 +205,7 @@ No modelo 1 para a classe 1 = com depressão o modelo obteve uma precisao de 61.
 
 ![knime-model-lr](./assets/knime-model-lr.png)
 
-### 3.3. Modelo 2 regressão linear + data augmentation (SMOTE)
+### 3.3. Modelo 2 Regressão Logistica + Data Augmentation (SMOTE)
 
 ![knime-model-lr-smote](./assets/knime-model-lr-smote.png)
 
@@ -218,7 +216,7 @@ No modelo 2 para a classe 1 = com depressão o modelo obteve uma precisão de 83
 * ERROS: tivemos 45 FN (estudantes que tinham depressão e foram categorizados sem depressão)
 * ERROS: tivemos 5 FP (estudantes que não tinham depressão e foram categorizados com depressão)
 
-### 3.4. Comparação modelo 1 vs modelo 2
+### 3.4. Comparação Modelo 1 vs Modelo 2
 
 Ao comparar os dois modelos, observa-se um comportamento distinto entre eles. O Modelo 1 apresentou maior Recall, sendo capaz de identificar uma quantidade maior de estudantes com depressão. Como consequência, também gerou um número maior de falsos positivos, classificando alguns estudantes sem depressão como deprimidos. Entretanto, essa abordagem reduz a quantidade de casos reais de depressão que deixam de ser identificados, característica desejável em aplicações de triagem na área da saúde.
 
@@ -228,7 +226,7 @@ Considerando que o objetivo deste trabalho é identificar estudantes com depress
 
 Vamos agora fazer outros modelos.
 
-### 3.5. Modelo 3 decision tree
+### 3.5. Modelo 3 Decision Tree
 
 No modelo 3 para a classe 1 = com depressão o modelo obteve uma precisão de 93.5% e um recall de 100%
 
@@ -240,3 +238,16 @@ No modelo 3 para a classe 1 = com depressão o modelo obteve uma precisão de 93
 O modelo até o momento está sendo o melhor ele conseguiu categorizar 100% dos estudantes que tinham depressão como depressão, um recall excelente para a área da saude, e para os que não tinham depressão ele categorizou apenas 2 resultado incorretamente como depressão uma taxa baixissima de falsos positivos.
 
 ![knime-model-decision-tree](./assets/knime-model-decision-tree.png)
+
+### 3.6. Modelo 4 Random Forest
+
+No modelo 4 para a classe 1 = com depressão o modelo obteve uma precisão de 90.3% e um recall de 100%
+
+* ACERTOS: tivemos 28 TP (estudantes que tinham depressão e o modelo categorizou como depressão)
+* ACERTOS: tivemos 1.169 TN (estudantes que não tinham depressão e o modelo categorizou como não depressão)
+* ERROS: tivemos 0 FN (estudantes que tinham depressão e foram categorizados sem depressão)
+* ERROS: tivemos 3 FP (estudantes que não tinham depressão e foram categorizados com depressão)
+
+O modelo 4 assim como o 3 obteve um excelente resultado de recall e de precisão com uma diferença de apenas 1 TP e 1 FP entre eles, pode ser dizer que os modelos tiveram resultados bem semelhantes, o modelo 4 pelo seu método de classificação e generalização e por ser menos sucetivel a overfiting seria uma escolha um pouco mais segura do que o decision tree até o momento.
+
+![knime-model-random-forest](./assets/knime-model-random-forest.png)
